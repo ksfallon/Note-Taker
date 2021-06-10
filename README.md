@@ -8,3 +8,5 @@
 
 ## License
 Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
+
+notes - public folder is for all of the front end work
