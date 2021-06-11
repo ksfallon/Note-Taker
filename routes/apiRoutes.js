@@ -1,12 +1,13 @@
 // api routes are for us to link our routes to our data, which can be held in different formats.
 // we are using the db.json file to hold our note data that our api route can retrieve.
-var uniqid = require('uniqid');
-const dbNotes = require('../db/db.json');
+const middle = require('../db/middleware')
 
 // ROUTING  now we use GET requests with our API - similar to the GET requests for our HTML Routes
 module.exports = (app) => {
 
-  app.get('/api/notes', (req, res) => res.json(dbNotes));
+  app.get('/api/notes', (req, res) => {
+    middle.
+  })
   // return all saved notes as JSON with GET
 
   app.post('/api/notes', (req, res) => {
