@@ -1,48 +1,28 @@
 // api routes are for us to link our routes to our data, which can be held in different formats.
 // we are using the db.json file to hold our note data that our api route can retrieve.
-
+var uniqid = require('uniqid');
 const dbNotes = require('../db/db.json');
 
 // ROUTING  now we use GET requests with our API - similar to the GET requests for our HTML Routes
 module.exports = (app) => {
-  // API GET Requests
-  // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
-  // ---------------------------------------------------------------------------
 
   app.get('/api/notes', (req, res) => res.json(dbNotes));
+  // return all saved notes as JSON with GET
 
+  app.post('/api/notes', (req, res) => {
+//receive a new note to save on the request body
+// add it to the db.json file
+//then return the new note to the client.
 
-  // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
+// UNIQUE ID - create with uniqid npm should work - unique ID is only shown in the db.json ?
+   
+      dbNotes.push(req.body);
 
-  app.post('/api/tables', (req, res) => {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    } else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
   });
 
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
 
-  app.post('/api/clear', (req, res) => {
-    // Empty out the arrays of data
-    tableData.length = 0;
-    waitListData.length = 0;
+//   app.post('/api/delete', (req, res) => {
+ 
 
-    res.json({ ok: true });
-  });
-};
+//   });
+// };
