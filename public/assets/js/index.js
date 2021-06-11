@@ -35,23 +35,14 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-const getNotes = () => {
-// so we are fetching the api/notes and we want to GET the JSON file that contains the data - should be db.json
+const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-  .then((response) => response.json())
-  .then((dbNotes) => {
-
-    for (let i = 0; i < dbNotes.length; i++) {
-      // we want to get the notes from the db.json file
-      const dbNotes = document.getElementById('list-group');
-    }
   });
-}
+  
 // fetching the api/notes again to save a new note to db.json with POST
 const saveNote = (note) =>
   fetch('/api/notes', {
