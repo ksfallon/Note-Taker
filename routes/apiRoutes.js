@@ -8,7 +8,7 @@ const middle = require('../db/middleware')
 module.exports = (app) => {
 
   router.get('/api/notes', (req, res) => {
-    // middle.
+    //middle.
   })
 
   router.post('/api/notes', (req, res) => {
