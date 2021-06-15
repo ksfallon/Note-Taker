@@ -1,16 +1,16 @@
 const path = require('path')
 const router = require('express').Router
 
-module.exports = (app) => {
+module.exports = (router) => {
     // => HTML GET Requests
  
     // This is how the user visits specific pages, first we put the notes page
-    app.get('/notes', (req, res) => {
+    router.get('/notes', (req, res) => {
       res.sendFile(path.join(__dirname, '../public/notes.html'));
     });
   
     // last we put the default home page which is index.html
-    app.get('*', (req, res) => {
+    router.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, '../public/index.html'));
     });
   };

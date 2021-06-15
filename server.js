@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true })); //true is for the qs library(look that up)
 app.use(express.json());
+app.use(express.static('./public'));
 
 // Routes are all the different paths he server can go down, like a map, it can use to respond when users visit or request data from diff URLS
 // Here we are requiring two routes - api and html - either go down some api paths or html paths here
