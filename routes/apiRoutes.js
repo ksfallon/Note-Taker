@@ -1,4 +1,4 @@
-const router = require('express').Router
+//const router = require('express').Router()
 // const app = express()
 // api routes are for us to link our routes to our data, which can be held in different formats.
 // we are using the db.json file to hold our note data that our api route can retrieve.
@@ -7,15 +7,25 @@ const Middle = require('../db/middleware')
 // ROUTING  now we use GET requests with our API - similar to the GET requests for our HTML Routes
 module.exports = (router) => {
 
-  router.get('/notes', (req, res) => {
-    Middle.readFile()
+  router.get('/api/notes', async (req, res) => {
+    const notes = await Middle.readFile()
+    res.json(notes)
   })
 
-  router.post('/notes', (req, res) => {
-    // middle.
+  router.post('/api/notes', (req, res) => {
+    const note = req.body
+    console.log('incoming note!!!! ', note)
+    //note.id = uniqid()
+    Middle.writeFile(note)
+    //.then(() =>
+    //req.body.id = uniqid()
+    // I want to DB.push(req.body)
+    //).then(() =>
+    //getFile() 
+    //)
   })
 
-  router.delete('/notes', (req, res) => {
+  router.delete('/api/notes', (req, res) => {
     // middle.
   })
 }

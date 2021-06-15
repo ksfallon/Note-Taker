@@ -1,7 +1,5 @@
 // importing our npm express module here by creating a const express and requiring express
 const express = require('express');
-const apiRoutes = require('./routes/apiRoutes')
-const htmlRoutes = require('./routes/htmlRoutes');
 // we need to set the const app = to express() bc it tells node js that we are creating an "express" server
 const app = express();
 
@@ -13,14 +11,19 @@ const PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true })); //true is for the qs library(look that up)
 app.use(express.json());
-app.use(express.static('./public'));
+app.use(express.static('public'));
 
 // Routes are all the different paths he server can go down, like a map, it can use to respond when users visit or request data from diff URLS
 // Here we are requiring two routes - api and html - either go down some api paths or html paths here
 // *Always do api route first, can hit a bug if its put second bc html can block the api routes
 
-app.use('/api', apiRoutes); //api routes are for getting data, sending data, deleting data
-app.use('/', htmlRoutes); //html routes are more the user they go to this page and get that specific html page
+//const apiRoutes =
+require('./routes/htmlRoutes')(app);
+ require('./routes/apiRoutes')(app)
+//const htmlRoutes =
+//app.use('/api', apiRoutes); //api routes are for getting data, sending data, deleting data
+//app.use('/', htmlRoutes); //html routes are more the user they go to this page and get that specific html page
+
 // require('./routes/apiRoutes')(app);//api routes are for getting data, sending data, deleting data
 // require('./routes/htmlRoutes')(app);//html routes are more the user they go to this page and get that specific html page
 
