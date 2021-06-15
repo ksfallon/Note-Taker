@@ -1,14 +1,24 @@
+// here is the note title var
 let noteTitle;
+// here is the not test var
 let noteText;
+// save notes button is a floppy dist
 let saveNoteBtn;
+// new note button is a plus sign
 let newNoteBtn;
+// list of note titles on webpage
 let noteList;
 
+// the html path to the notes page, here are all of the vars there
 if (window.location.pathname === '/notes') {
+  // note title is in the input area of note.html (in row div with noteList) 
   noteTitle = document.querySelector('.note-title');
+  // note text is in the text area of the div class col-8 with note title (in row div with noteList) 
   noteText = document.querySelector('.note-textarea');
+  // save and new are in the nav bar of the note.html
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
+  // in col-4 (in row div with notes) list-group is a ul, so it'll list the noteTitles here when saved 
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
@@ -32,16 +42,18 @@ const getNotes = () =>
       'Content-Type': 'application/json',
     },
   });
-
+  
+// fetching the api/notes again to save a new note to db.json with POST
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(note),
+    body: JSON.stringify(note), // then we stringify that data - does this call the db.json file?
   });
 
+  // a unique ID is given to each note - not sure how to do this yet - and we want to DELETE this note by deleting its id in db.json
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,7 +62,9 @@ const deleteNote = (id) =>
     },
   });
 
+  // this function happens when you are typing a new note - thats why I calls on 'activeNote' & saveBtn is hidden
 const renderActiveNote = () => {
+  // save button is hidden until you finish type note title and note text
   hide(saveNoteBtn);
 
   if (activeNote.id) {

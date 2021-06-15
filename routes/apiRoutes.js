@@ -15,14 +15,9 @@ module.exports = (router) => {
   router.post('/api/notes', (req, res) => {
     const note = req.body
     console.log('incoming note!!!! ', note)
-    //note.id = uniqid()
+    
     Middle.writeFile(note)
-    //.then(() =>
-    //req.body.id = uniqid()
-    // I want to DB.push(req.body)
-    //).then(() =>
-    //getFile() 
-    //)
+
   })
 
   router.delete('/api/notes', (req, res) => {
