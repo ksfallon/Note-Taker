@@ -35,11 +35,13 @@ async writeFile(note){
  }
 
  deleteNote(deleteId){
-    noteFile.map(value => {
-        if (value.id === deleteId) {
+    noteFile.map(note => {
+        if (note.id === deleteId) {
         //   noteFile.splice({id: deleteId}, 1);
           console.log("what is deleteID? ", deleteId)
-        } 
+          console.log("what is note.id ", note.id)
+        //   console.log("what am i actually splicing ", noteFile.splice(value.id, 1))
+        }
       })
     fs.writeFileSync("db/db.json", JSON.stringify(noteFile)), err => {
         if (err) throw err;
