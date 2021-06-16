@@ -47,14 +47,15 @@ app.use(express.json()); // parses JSON
 app.use(express.static('public')); // parses the data from our public folder`
 
 - We have to require our two types of routes - api and html - make sure to always put html first because otherwise api can block html links. Html are the user side and take them between website pages while api routes are for getting, sending and deleting data.
-<br>
+
 `require('./routes/htmlRoutes')(app); `
-<br>
+
 `require('./routes/apiRoutes')(app);  `
 - Lastly, we start the server on the *PORT* using the *listen* method.
 `app.listen(PORT, () => {
   console.log(`App listening on PORT: http://localhost:${PORT}`);
 });`
+
 <br>
 <br>
 
