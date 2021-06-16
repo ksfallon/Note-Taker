@@ -53,7 +53,7 @@ app.use(express.static('public')); // parses the data from our public folder`
 `require('./routes/apiRoutes')(app);  `
 - Lastly, we start the server on the *PORT* using the *listen* method.
 `app.listen(PORT, () => {
-  console.log(`App listening on PORT: http://localhost:${PORT}`);
+  console.log('App listening on PORT: http://localhost:${PORT}');
 });`
 
 <br>
