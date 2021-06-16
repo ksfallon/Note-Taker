@@ -114,24 +114,25 @@ const writeAsync = util.promisify(fs.writeFile)`
 1. We need to require middleware.js and since it is a class its const is capitalized *Middle* . All of our get, post and delete functions are within a module.exports function. I run router through module.exports because I am using the router function of express.
 2. The first thing we want to do is **get** (or request) our data from our db.json file. So first we specifiy the html link '/api/notes' which if we type into our browser would just show the array and no html or css structure. we set the parameters to request and respond and in the function we set a const *notes* equal to *Middle.readFile()* and then we tell the server to respond using json(notes) so the front-end knows the function is complete. 
 -*Middle.readfile() - so we can as that specific function to run*.
-<br>
+
 `  router.get('/api/notes', async (req, res) => {
     const notes = await Middle.readFile();
     res.json(notes)
   })`
-  <br>
+
   using the *async* and *await* again instead of the *then* to declare the promise.
-<br>
+
 3. Next, we want to **post** which is going to send the data from db.json to the server to update the data displayed on the website.
 -**post** starts very similar to **get** -specificy the /api/html and set the req and res parameters:
-<br>
+
   `router.post('/api/notes', (req, res) => {
     const note = req.body
     Middle.writeFile(note)
     res.end()})`
-<br>
+
 - again setting a const *note* (now its singular) to the request body.
 - call on the Middle.writeFile(note) sending the note through the middleware. So this new note entered into the html will be sent to the middleware.js writeFile() to be given a new id and to be added to the notes array.
+
 4. route.delete is setup very similarly but for our html link we want to call on a specific id so '/api/notes/:id" is our path, and we call on our req and res parameters. I created a const called *deleteId* that is called in the deleteNote function in middleware.js. And *deleteId* is equal to our request route parameters this time to get that specific id. And this is done because we want the specific note that was selected to be deleted and thats based on its unique id.
 <br>
 <br>
