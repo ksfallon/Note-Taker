@@ -17,6 +17,7 @@ module.exports = (router) => {
     console.log('incoming note!!!! ', note)
     
     Middle.writeFile(note)
+    res.end()
 
   })
 

@@ -10,7 +10,7 @@ module.exports = (router) => {
     });
   
     // last we put the default home page which is index.html
-    router.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-    });
+   // router.get('*', (req, res) => {
+   // res.sendFile(path.join(__dirname, '../public/index.html'));
+   // });
   };

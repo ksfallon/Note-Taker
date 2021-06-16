@@ -24,15 +24,15 @@ async writeFile(note){
         if (err) throw err;
     }
 }
-// 
-getNotes(){
-    return this.readFile() 
-    .then(notes => {
-        let notesARR;
-        notesARR = [].concat(JSON.parse(notes))
-        return notesARR
-    })
-}
+ 
+ getNotes(){
+     return this.readFile() 
+     .then(notes => {
+         let notesARR = []
+         notesARR = notesARR.concat(JSON.parse(notes))
+         return notesARR
+     })
+ }
 }
 
 module.exports = new MiddleDb()
