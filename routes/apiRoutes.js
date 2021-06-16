@@ -3,6 +3,7 @@
 // api routes are for us to link our routes to our data, which can be held in different formats.
 // we are using the db.json file to hold our note data that our api route can retrieve.
 const Middle = require('../db/middleware')
+const noteFile = require('../db/db.json')
 
 // ROUTING  now we use GET requests with our API - similar to the GET requests for our HTML Routes
 module.exports = (router) => {
@@ -21,21 +22,13 @@ module.exports = (router) => {
 
   })
 
-  router.delete('/api/notes', (req, res) => {
-    // middle.
+  router.delete('/api/notes/:id', (req, res) => {
+    noteFile.splice({id: req.params.id}, 1);
+    console.log("ds.json", noteFile)
+    Middle.writeFile(noteFile)
+    res.end()
   })
 }
-  // return all saved notes as JSON with GET
 
-//   app.post('/api/notes', (req, res) => {
-// //receive a new note to save on the request body
-// // add it to the db.json file
-// //then return the new note to the client.
-
-// // UNIQUE ID - create with uniqid npm should work - unique ID is only shown in the db.json ?
-
-//       dbNotes.push(req.body);
-
-//   });
 
   

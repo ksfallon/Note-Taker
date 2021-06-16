@@ -1,7 +1,7 @@
 const fs = require('fs') //writing the file
 const uniqid = require('uniqid') //generates the unique ID for each note
 const util = require('util') //util are Utilities
-
+const noteFile = require('./db.json')
 // changing the fs read and fs write files to asynchronous promises
 
 const readAsync = util.promisify(fs.readFile)
@@ -33,6 +33,11 @@ async writeFile(note){
          return notesARR
      })
  }
+
+//  deleteNote(){
+//     noteFile.splice({id: req.params.id}, 1);
+//     writeFile(noteFile)
+//  }
 }
 
 module.exports = new MiddleDb()
