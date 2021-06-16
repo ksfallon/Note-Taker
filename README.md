@@ -27,8 +27,38 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
  2. Then I created the *routes* folder to hold my *apiRoutes.js* and *htmlRoutes.js* files. 
  3. I also added a file called *middleware.js* in the *db* (database) file.
 ## 3. The server.js and htmlRoutes.js Files
+### server.js
+- We are using npm express to connect to our server. Once "npm i express" is done we can require it in the server.js. Then we create const *app* that equals *express()* and it tells node js that I am creating an *express* server. The last const we need is our *PORT* which is where my *app* is listening. We set it equal to process.env.PORT || 8080 - the process.env.PORT is necessary because Heruko determines what port the app is listening on so this allows the PORT to change. Otherwise when we work with it localhost 8080 is just fine.
+<br>
+- next we use *app.use()* to set up *express* to handle data parsing.
+`app.use(express.urlencoded({ extended: true })); //parses urlencode data
+app.use(express.json()); // parses JSON
+app.use(express.static('public')); // parses the data from our public folder`
+<br>
+- We have to require our two types of routes - api and html - make sure to always put html first because otherwise api can block html links. Html are the user side and take them between website pages while api routes are for getting, sending and deleting data.
+<br>
+`require('./routes/htmlRoutes')(app); `
+<br>
+`require('./routes/apiRoutes')(app);  `
+- Lastly, we start the server on the *PORT* using the *listen* method.
+`app.listen(PORT, () => {
+  console.log(`App listening on PORT: http://localhost:${PORT}`);
+});`
+<br>
+<br>
+### htmlRoutes.js
+- The htmlRoutes.js is the next logical step since the front-end code is done and we just need to connect that code to the server.
+- As shown above in the server.js, the requiring of the htmlRoutes.js is what connects the two files on the server.js side. On the htmlRoutes.js side we place our *router.get()* functions in a *module.exports(router)*.
+- In our *router.get()* we start the html link off of the home page that we want to direct the users too and thats '/notes' always with a forward slash first and then we use the request and respond parameters. The response will use the method *sendFile*, **path** and the method *join* to connect the notes.html file to the homepage (_dirname). Then the notes.html page will display with the '/note' from the homepage.
+`    router.get('/notes', (req, res) => {
+      console.log('hit / notes html route!')
+      res.sendFile(path.join(__dirname, '../public/notes.html'));
+    });`
+- I created a *router.get('*')* for the default page but it caused a connection error when accessing the website so it is commented out for now. 
 
 ## 4. The middleware.js and apiRoutes.js Files
+**The bulk of the back-end code is located in my middleware.js and apiRoutes.js files**
+
 ## 5. License
 Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
 
