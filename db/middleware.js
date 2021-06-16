@@ -40,7 +40,7 @@ async writeFile(note){
         //   noteFile.splice({id: deleteId}, 1);
           console.log("what is deleteID? ", deleteId)
           console.log("what is note.id ", note.id)
-        //   console.log("what am i actually splicing ", noteFile.splice(value.id, 1))
+        //   console.log("what am i actually splicing ", noteFile.splice(noteFile.deleteId, 1))
         }
       })
     fs.writeFileSync("db/db.json", JSON.stringify(noteFile)), err => {
