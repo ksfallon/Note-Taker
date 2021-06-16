@@ -39,12 +39,13 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
 ## 3. The server.js and htmlRoutes.js Files
 ### server.js
 - We are using npm express to connect to our server. Once "npm i express" is done we can require it in the server.js. Then we create const *app* that equals *express()* and it tells node js that I am creating an *express* server. The last const we need is our *PORT* which is where my *app* is listening. We set it equal to process.env.PORT || 8080 - the process.env.PORT is necessary because Heruko determines what port the app is listening on so this allows the PORT to change. Otherwise when we work with it localhost 8080 is just fine.
-<br>
+
 - next we use *app.use()* to set up *express* to handle data parsing.
+
 `app.use(express.urlencoded({ extended: true })); //parses urlencode data
 app.use(express.json()); // parses JSON
 app.use(express.static('public')); // parses the data from our public folder`
-<br>
+
 - We have to require our two types of routes - api and html - make sure to always put html first because otherwise api can block html links. Html are the user side and take them between website pages while api routes are for getting, sending and deleting data.
 <br>
 `require('./routes/htmlRoutes')(app); `
@@ -78,9 +79,10 @@ const writeAsync = util.promisify(fs.writeFile)`
 - I created the class *MiddleDb* which will set up the file system paths and how to encode the data. Which the apiRoutes will then use to communicate with the server and the html by get/send/delete data. 
 - *MiddleDb* has 4 functions: *readFile()*,  *writeFile(note)*, *getNotes()* and *deleteNote(deleteId)*
 1. *readFile()* - is very straightforward and uses the *readAsync* const to read the file *db.json* (with the path to that file) using the 'utf8' character encoding.
-<br>
+
 2. *getNotes()* - even though it is the third function it is called in *writeFile()* and should be explained first.
 - first it returns the file that was read in the *readFile()*, **then** it concats (joins) the notes in the file into an array called *notesARR*. It has to use the JSON because we are dealing with data (this time is happens to be a json file) and since the data is a string and we need them to be objects, because arrays stores elements such as objects, we must parse the data which converts strings into objects.
+
 ` getNotes(){
      return this.readFile().then(notes => { let notesARR = []
          notesARR = notesARR.concat(JSON.parse(notes))
@@ -88,11 +90,9 @@ const writeAsync = util.promisify(fs.writeFile)`
 
 3. *writeFile(note)* - 
 - Each note is put through this function. It takes the note that is sent to it from the apiRoutes.js, it is the req.body (requested data, the new note that was input by the user into the website which is an object containing a title and text) and first thing that is done is a unique id is assigned to this new note using the uniqid module:
-<br>
 `note.id = uniqid()`
 <br>
 Next a const *notes* is created that is sent to *this.getNotes(). Instead of using a "then" statement I use an *await* and *async*:
-<br>
 `async writeFile(note){
     note.id = uniqid()
     const notes = await this.getNotes()`
@@ -101,7 +101,7 @@ which tells the function not to move on until this is done, THEN it can go to th
 - And the next line pushes our new note into our array (that was created with getNotes).
 <br>
 - Finally, we call on module *fs* and method *writeFileSync* which will synchronously write our new array to the db.json file, replacing the old array, and the data (json) which is currently an object will be converted into a string using *stringify*.
-- **With fs its inmportant to include `err => {if (err) throw err;` to catch any potential errors that might happen when writing files**
+**With fs its important to include `err => {if (err) throw err;` to catch any potential errors that might happen when writing files**
 <br>
 4. The last function is *deleteNote(deleteId)*
 - The deleteId is sent to the function from the apiRoutes.js and it is the req.params.id (the requested parameter based on id, the note that the user clicked the trashcan button on to remove/delete this note from their list).
