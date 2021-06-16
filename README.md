@@ -91,18 +91,17 @@ const writeAsync = util.promisify(fs.writeFile)`
 3. *writeFile(note)* - 
 - Each note is put through this function. It takes the note that is sent to it from the apiRoutes.js, it is the req.body (requested data, the new note that was input by the user into the website which is an object containing a title and text) and first thing that is done is a unique id is assigned to this new note using the uniqid module:
 `note.id = uniqid()`
-<br>
-Next a const *notes* is created that is sent to *this.getNotes(). Instead of using a "then" statement I use an *await* and *async*:
+- Next a const *notes* is created that is sent to *this.getNotes(). Instead of using a "then" statement I use an *await* and *async*:
 `async writeFile(note){
     note.id = uniqid()
     const notes = await this.getNotes()`
-<br>
-which tells the function not to move on until this is done, THEN it can go to the next line of code, *async* just needs to be declared to show that it is a function that returns a promise. 
+- which tells the function not to move on until this is done, THEN it can go to the next line of code, *async* just needs to be declared to show that it is a function that returns a promise. 
 - And the next line pushes our new note into our array (that was created with getNotes).
-<br>
+
 - Finally, we call on module *fs* and method *writeFileSync* which will synchronously write our new array to the db.json file, replacing the old array, and the data (json) which is currently an object will be converted into a string using *stringify*.
 **With fs its important to include `err => {if (err) throw err;` to catch any potential errors that might happen when writing files**
-<br>
+
+
 4. The last function is *deleteNote(deleteId)*
 - The deleteId is sent to the function from the apiRoutes.js and it is the req.params.id (the requested parameter based on id, the note that the user clicked the trashcan button on to remove/delete this note from their list).
 - We call on the const *noteFile* which is the db.json and *map* it: where note represents the individual objects in our array, and if note.id equals deletedID then we want to *splice* this note from our *noteFile* array.
