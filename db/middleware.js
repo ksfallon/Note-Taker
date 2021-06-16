@@ -10,7 +10,7 @@ const writeAsync = util.promisify(fs.writeFile)
 class MiddleDb {
     // this sets up the file system path and how to encode the data
 readFile(){
-    return readAsync("./db/db.json", "utf8")
+    return readAsync("./db/db.json", "utf8") // utf8 is used to encode
     //util.promisify(fs.readFile("/db/db.json", "utf8"))
 }
 // this sets up file system path and stringifies the JSON

@@ -11,12 +11,17 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
 5. [Creating the apiRoutes](#5-the-apiroutesjs-file)
 6. [License for Repository](#6-license)
 
+<br>
+<br>
+
 ## 1. Overview of Tasks
  - The goal of the Note Taker app is to allow the user to **write** AND **save** notes on this webpage. We are given the front-end code and need to set up the back-end to get the webpage running. 
  - The home page must link to the notes.html page with the "Get Started" button.
  - On the notes page the user is presented with pre-existing notes in the left-hand column, and empty fields to enter in a new note (with a new title) in the right-hand column.
  - After the user enters a new note *title* and then *text* and click the save button, the new note appears at the bottom of the list in the left-hand column. And they can clear these two areas to create a new note with the *plus* button located next to the save button on the top right-hand side
  - When an old note is clicked on, it appears in the right-hand column and the text is visible.
+<br>
+<br>
 
 ## 2. Files and Modules needed to start
  **Modules used:**
@@ -27,6 +32,8 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
  1. The first file I added was the *server.js* file to the main *NOTE-TAKER* folder. 
  2. Then I created the *routes* folder to hold my *apiRoutes.js* and *htmlRoutes.js* files. 
  3. I also added a file called *middleware.js* in the *db* (database) file.
+<br>
+<br>
 ## 3. The server.js and htmlRoutes.js Files
 ### server.js
 - We are using npm express to connect to our server. Once "npm i express" is done we can require it in the server.js. Then we create const *app* that equals *express()* and it tells node js that I am creating an *express* server. The last const we need is our *PORT* which is where my *app* is listening. We set it equal to process.env.PORT || 8080 - the process.env.PORT is necessary because Heruko determines what port the app is listening on so this allows the PORT to change. Otherwise when we work with it localhost 8080 is just fine.
@@ -56,7 +63,8 @@ app.use(express.static('public')); // parses the data from our public folder`
       res.sendFile(path.join(__dirname, '../public/notes.html'));
     });`
 - I created a *router.get('*')* for the default page but it caused a connection error when accessing the website so it is commented out for now. 
-
+<br>
+<br>
 ## 4. The middleware.js File
 **The bulk of the back-end code is located in my middleware.js and apiRoutes.js files**
 - In this file I am requiring *fs* *uniqid* and *util* to create the middleware for my api routes instead of putting all of this code in the apiRoutes file.
@@ -75,21 +83,55 @@ const writeAsync = util.promisify(fs.writeFile)`
          return notesARR})}`
 
 3. *writeFile(note)* - 
-- Each note is put through this function and first thing that is done is a unique id is assigned to each note using the uniqid module:
+- Each note is put through this function. It takes the note that is sent to it from the apiRoutes.js, it is the req.body (requested data, the new note that was input by the user into the website which is an object containing a title and text) and first thing that is done is a unique id is assigned to this new note using the uniqid module:
 <br>
 `note.id = uniqid()`
 <br>
-Next a const *notes* is created that is sent to *this.getNotes(). Instead of using a "then" statement I use an *await*:
+Next a const *notes* is created that is sent to *this.getNotes(). Instead of using a "then" statement I use an *await* and *async*:
 <br>
-`const notes = await this.getNotes()`
+`async writeFile(note){
+    note.id = uniqid()
+    const notes = await this.getNotes()`
 <br>
-which tells the function not to move on until this is done, THEN it can go to the next line of code. And the next line pushes our new note into our array (that was created with getNotes).
+which tells the function not to move on until this is done, THEN it can go to the next line of code, *async* just needs to be declared to show that it is a function that returns a promise. 
+- And the next line pushes our new note into our array (that was created with getNotes).
 <br>
 - Finally, we call on module *fs* and method *writeFileSync* which will synchronously write our new array to the db.json file, replacing the old array, and the data (json) which is currently an object will be converted into a string using *stringify*.
 - **With fs its inmportant to include `err => {if (err) throw err;` to catch any potential errors that might happen when writing files**
+<br>
+4. The last function is *deleteNote(deleteId)*
+- The deleteId is sent to the function from the apiRoutes.js and it is the req.params.id (the requested parameter based on id, the note that the user clicked the trashcan button on to remove/delete this note from their list).
+- We call on the const *noteFile* which is the db.json and *map* it: where note represents the individual objects in our array, and if note.id equals deletedID then we want to *splice* this note from our *noteFile* array.
+- **It should remove the specific id but for some reason it is removing the first item in the array instead so the final slice is commented out until i debug it**
+<br>
+<br>
 
 ## 5. The apiRoutes.js File
+- Now we just need to create the api routes so they can use the middleware functions to get/save/delete the data. 
+1. We need to require middleware.js and since it is a class its const is capitalized *Middle* . All of our get, post and delete functions are within a module.exports function. I run router through module.exports because I am using the router function of express.
+2. The first thing we want to do is **get** (or request) our data from our db.json file. So first we specifiy the html link '/api/notes' which if we type into our browser would just show the array and no html or css structure. we set the parameters to request and respond and in the function we set a const *notes* equal to *Middle.readFile()* and then we tell the server to respond using json(notes) so the front-end knows the function is complete. 
+-*Middle.readfile() - so we can as that specific function to run.
+<br>
+- `  router.get('/api/notes', async (req, res) => {
+    const notes = await Middle.readFile();
+    res.json(notes)
+  })`
+  <br>*
+  using the *async* and *await* again instead of the *then* to declare the promise.
+<br>
+3. Next, we want to **post** which is going to send the data from db.json to the server to update the data displayed on the website.
+-**post** starts very similar to **get** -specificy the /api/html and set the req and res parameters:
+<br>
+  `router.post('/api/notes', (req, res) => {
+    const note = req.body
+    Middle.writeFile(note)
+    res.end()})`
+<br>
+- again setting a const *note* (now its singular) to the request body.
+- call on the Middle.writeFile(note) sending the note through the middleware. So this new note entered into the html will be sent to the middleware.js writeFile() to be given a new id and to be added to the notes array.
+4. route.delete is setup very similarly but for our html link we want to call on a specific id so '/api/notes/:id" is our path, and we call on our req and res parameters. I created a const called *deleteId* that is called in the deleteNote function in middleware.js. And *deleteId* is equal to our request route parameters this time to get that specific id. And this is done because we want the specific note that was selected to be deleted and thats based on its unique id.
+<br>
+<br>
+
 ## 6. License
 Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
-
-notes - public folder is for all of the front end work
