@@ -139,22 +139,22 @@ which tells the function not to move on until this is done, THEN it can go to th
 First shows the webpage with no notes, and you can see in the console the notes array is empty
 <br>
 
-![no-notes]()
+![no-notes](https://github.com/ksfallon/Note-Taker/blob/main/Assets/No-Notes.png)
 <br>
 Second shows the webpage with three saved notes, nothing in the add notes area, and the console with a notes array of 3
 <br>
 
-![listOf3]()
+![listOf3](https://github.com/ksfallon/Note-Taker/blob/main/Assets/listOf3.png)
 <br>
 Third shows the webpage when one of the saved notes is click, and it displayed on the right side of the screen.
 <br>
 
-![old-note-display]()
+![old-note-display](https://github.com/ksfallon/Note-Taker/blob/main/Assets/old-note-display.png)
 <br>
 Fourth shows the webpage when an item is deleted, and the notes array in the console has gone from 3 to 2.
 <br>
 
-![delete]()
+![delete](https://github.com/ksfallon/Note-Taker/blob/main/Assets/delete.png)
 <br>
 
 ## 7. License
