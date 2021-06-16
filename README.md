@@ -9,7 +9,9 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
 3. [Creating the Server & htmlRoutes](#3-the-serverjs-and-htmlroutesjs-files)
 4. [Creating the middleware](#4-the-middlewarejs-file)
 5. [Creating the apiRoutes](#5-the-apiroutesjs-file)
-6. [License for Repository](#6-license)
+Screen Shots of App
+6. [Screen Shots of App with Inspect/Console](#6-screen-shots-of-app)
+7. [License for Repository](#7-license)
 
 <br>
 <br>
@@ -133,5 +135,27 @@ which tells the function not to move on until this is done, THEN it can go to th
 <br>
 <br>
 
-## 6. License
+## 6. Screen Shots of App
+First shows the webpage with no notes, and you can see in the console the notes array is empty
+<br>
+
+![no-notes]()
+<br>
+Second shows the webpage with three saved notes, nothing in the add notes area, and the console with a notes array of 3
+<br>
+
+![listOf3]()
+<br>
+Third shows the webpage when one of the saved notes is click, and it displayed on the right side of the screen.
+<br>
+
+![old-note-display]()
+<br>
+Fourth shows the webpage when an item is deleted, and the notes array in the console has gone from 3 to 2.
+<br>
+
+![delete]()
+<br>
+
+## 7. License
 Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
