@@ -34,10 +34,16 @@ async writeFile(note){
      })
  }
 
- deleteNote(notes){
-    fs.writeFileSync("db/db.json", JSON.stringify(notes)), err => {
+ deleteNote(deleteId){
+    noteFile.map(value => {
+        if (value.id === deleteId) {
+        console.log("delete worked!")
+        noteFile.splice(value, 1)
+        } 
+    })
+    fs.writeFileSync("db/db.json", JSON.stringify(noteFile)), err => {
         if (err) throw err;
-        console.log("note was deleted, new list: ", notes);
+        console.log("note was deleted, new list: ", noteFile);
  }
 }
 

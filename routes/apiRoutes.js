@@ -24,16 +24,8 @@ module.exports = (router) => {
 
   router.delete('/api/notes/:id', (req, res) => {
     const deleteId = req.params.id
-    noteFile.map(value => {
-      if (value.id === deleteId) {
-        console.log("delete worked!")
-        noteFile.splice(value, 1)
-      } 
-    })
-    // noteFile.splice({id: req.params.id}, 1);
-    // console.log("ds.json", noteFile)
-    Middle.deleteNote(noteFile)
-    res.json(noteFile)
+    Middle.deleteNote(deleteId)
+    res.json(deleteId)
   })
 }
 
