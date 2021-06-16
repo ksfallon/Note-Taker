@@ -32,7 +32,8 @@ module.exports = (router) => {
     })
     // noteFile.splice({id: req.params.id}, 1);
     // console.log("ds.json", noteFile)
-    res.end()
+    Middle.deleteNote(noteFile)
+    res.json(noteFile)
   })
 }
 

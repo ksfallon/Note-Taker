@@ -34,10 +34,13 @@ async writeFile(note){
      })
  }
 
-//  deleteNote(){
-//     noteFile.splice({id: req.params.id}, 1);
-//     writeFile(noteFile)
-//  }
+ deleteNote(notes){
+    fs.writeFileSync("db/db.json", JSON.stringify(notes)), err => {
+        if (err) throw err;
+        console.log("note was deleted, new list: ", notes);
+ }
+}
+
 }
 
 module.exports = new MiddleDb()
