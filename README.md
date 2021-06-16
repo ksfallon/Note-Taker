@@ -9,7 +9,6 @@ Link to [Github page](https://github.com/ksfallon/Note-Taker).
 3. [Creating the Server & htmlRoutes](#3-the-serverjs-and-htmlroutesjs-files)
 4. [Creating the middleware](#4-the-middlewarejs-file)
 5. [Creating the apiRoutes](#5-the-apiroutesjs-file)
-Screen Shots of App
 6. [Screen Shots of App with Inspect/Console](#6-screen-shots-of-app)
 7. [License for Repository](#7-license)
 
@@ -36,6 +35,7 @@ Screen Shots of App
  3. I also added a file called *middleware.js* in the *db* (database) file.
 <br>
 <br>
+
 ## 3. The server.js and htmlRoutes.js Files
 ### server.js
 - We are using npm express to connect to our server. Once "npm i express" is done we can require it in the server.js. Then we create const *app* that equals *express()* and it tells node js that I am creating an *express* server. The last const we need is our *PORT* which is where my *app* is listening. We set it equal to process.env.PORT || 8080 - the process.env.PORT is necessary because Heruko determines what port the app is listening on so this allows the PORT to change. Otherwise when we work with it localhost 8080 is just fine.
@@ -56,6 +56,7 @@ app.use(express.static('public')); // parses the data from our public folder`
 });`
 <br>
 <br>
+
 ### htmlRoutes.js
 - The htmlRoutes.js is the next logical step since the front-end code is done and we just need to connect that code to the server.
 - As shown above in the server.js, the requiring of the htmlRoutes.js is what connects the two files on the server.js side. On the htmlRoutes.js side we place our *router.get()* functions in a *module.exports(router)*.
@@ -67,6 +68,7 @@ app.use(express.static('public')); // parses the data from our public folder`
 - I created a *router.get('*')* for the default page but it caused a connection error when accessing the website so it is commented out for now. 
 <br>
 <br>
+
 ## 4. The middleware.js File
 **The bulk of the back-end code is located in my middleware.js and apiRoutes.js files**
 - In this file I am requiring *fs* *uniqid* and *util* to create the middleware for my api routes instead of putting all of this code in the apiRoutes file.
@@ -112,13 +114,13 @@ which tells the function not to move on until this is done, THEN it can go to th
 - Now we just need to create the api routes so they can use the middleware functions to get/save/delete the data. 
 1. We need to require middleware.js and since it is a class its const is capitalized *Middle* . All of our get, post and delete functions are within a module.exports function. I run router through module.exports because I am using the router function of express.
 2. The first thing we want to do is **get** (or request) our data from our db.json file. So first we specifiy the html link '/api/notes' which if we type into our browser would just show the array and no html or css structure. we set the parameters to request and respond and in the function we set a const *notes* equal to *Middle.readFile()* and then we tell the server to respond using json(notes) so the front-end knows the function is complete. 
--*Middle.readfile() - so we can as that specific function to run.
+-*Middle.readfile() - so we can as that specific function to run*.
 <br>
-- `  router.get('/api/notes', async (req, res) => {
+`  router.get('/api/notes', async (req, res) => {
     const notes = await Middle.readFile();
     res.json(notes)
   })`
-  <br>*
+  <br>
   using the *async* and *await* again instead of the *then* to declare the promise.
 <br>
 3. Next, we want to **post** which is going to send the data from db.json to the server to update the data displayed on the website.
