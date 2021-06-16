@@ -24,8 +24,9 @@ module.exports = (router) => {
 
   router.delete('/api/notes/:id', (req, res) => {
     const deleteId = req.params.id
+
     Middle.deleteNote(deleteId)
-    res.json(deleteId)
+    res.json("true")
   })
 }
 
