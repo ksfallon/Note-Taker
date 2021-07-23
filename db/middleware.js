@@ -35,18 +35,23 @@ async writeFile(note){
  }
 
  deleteNote(deleteId){
-    noteFile.map(note => {
-        if (note.id === deleteId) {
-        //   noteFile.splice({id: deleteId}, 1);
-          console.log("what is deleteID? ", deleteId)
-          console.log("what is note.id ", note.id)
-          console.log("what am i actually splicing ", noteFile.splice(noteFile.deleteId, 1))
-        }
-      })
-    fs.writeFileSync("db/db.json", JSON.stringify(noteFile)), err => {
-        if (err) throw err;
-        console.log("note was deleted, new list: ", noteFile);
- }
+
+    return this.getNotes()
+    .then(notes => {
+        notes.filter(note => note.id !== deleteId)
+    }).then(filteredNotes => {this.writeFile(filteredNotes)})
+    // noteFile.map(note => {
+    //     if (note.id === deleteId) {
+    //     //   noteFile.splice({id: deleteId}, 1);
+    //       console.log("what is deleteID? ", deleteId)
+    //       console.log("what is note.id ", note.id)
+    //       console.log("what am i actually splicing ", noteFile.splice(noteFile.deleteId, 1))
+    //     }
+    //   })
+//     fs.writeFileSync("db/db.json", JSON.stringify(noteFile)), err => {
+//         if (err) throw err;
+//         console.log("note was deleted, new list: ", noteFile);
+//  }
 }
 
 }
